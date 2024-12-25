@@ -146,10 +146,10 @@ class Deserializer {
     return res;
   }
 
-  int _readInt64() {
+  BigInt _readInt64() {
     final res = _data.getInt64(_offset);
     _offset += 8;
-    return res;
+    return BigInt.from(res);
   }
 
   double _readFloat() {

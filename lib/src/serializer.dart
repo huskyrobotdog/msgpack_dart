@@ -32,6 +32,7 @@ class Serializer {
     if (d is bool) return _writer.writeUint8(d == true ? 0xc3 : 0xc2);
     if (d is int) return d >= 0 ? _writePositiveInt(d) : _writeNegativeInt(d);
     if (d is Float) return _writeFloat(d);
+    if (d is BigInt) return _writeBigInt(d);
     if (d is double) return _writeDouble(d);
     if (d is String) return _writeString(d);
     if (d is Uint8List) return _writeBinary(d);
@@ -84,6 +85,11 @@ class Serializer {
       this._writer.writeUint8(0xcf);
       this._writer.writeUint64(n);
     }
+  }
+
+  void _writeBigInt(BigInt n) {
+    _writer.writeUint8(0xd3);
+    _writer.writeInt64(n.toInt());
   }
 
   void _writeFloat(Float n) {
